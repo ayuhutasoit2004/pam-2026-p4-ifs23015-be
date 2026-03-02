@@ -22,4 +22,8 @@ val appModule = module {
     single {
         ProfileService()
     }
+    // Tambahkan di dalam appModule
+    single<IPohonRepository> { PohonRepository() }
+    single { PohonService(get()) }
+
 }

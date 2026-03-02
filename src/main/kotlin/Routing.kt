@@ -9,12 +9,14 @@ import org.delcom.data.AppException
 import org.delcom.data.ErrorResponse
 import org.delcom.helpers.parseMessageToMap
 import org.delcom.services.PlantService
+import org.delcom.services.PohonService
 import org.delcom.services.ProfileService
 import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
     val plantService: PlantService by inject()
     val profileService: ProfileService by inject()
+    val pohonService: PohonService by inject()
 
     install(StatusPages) {
         // Tangkap AppException
@@ -66,19 +68,40 @@ fun Application.configureRouting() {
             delete("/{id}") {
                 plantService.deletePlant(call)
             }
-
             get("/{id}/image") {
                 plantService.getPlantImage(call)
             }
         }
 
         // Route Profile
-        route("/profile"){
+        route("/profile") {
             get {
                 profileService.getProfile(call)
             }
             get("/photo") {
                 profileService.getProfilePhoto(call)
+            }
+        }
+
+        // Route Pohon
+        route("/pohon") {
+            get {
+                pohonService.getAllPohon(call)
+            }
+            post {
+                pohonService.createPohon(call)
+            }
+            get("/{id}") {
+                pohonService.getPohonById(call)
+            }
+            put("/{id}") {
+                pohonService.updatePohon(call)
+            }
+            delete("/{id}") {
+                pohonService.deletePohon(call)
+            }
+            get("/{id}/image") {
+                pohonService.getPohonImage(call)
             }
         }
     }

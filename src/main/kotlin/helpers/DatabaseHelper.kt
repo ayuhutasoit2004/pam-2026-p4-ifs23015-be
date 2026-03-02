@@ -2,6 +2,9 @@ package org.delcom.helpers
 
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
+import org.delcom.tables.PlantTable
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabases() {
     val dbHost = environment.config.property("ktor.database.host").getString()
@@ -15,4 +18,8 @@ fun Application.configureDatabases() {
         user = dbUser,
         password = dbPassword
     )
+    // ✅ INIT TABLE
+    transaction {
+        SchemaUtils.createMissingTablesAndColumns(PlantTable)
+    }
 }
