@@ -2,10 +2,12 @@ package org.delcom.module
 
 import org.delcom.repositories.IPlantRepository
 import org.delcom.repositories.PlantRepository
+import org.delcom.repositories.IPohonRepository
+import org.delcom.repositories.PohonRepository
 import org.delcom.services.PlantService
+import org.delcom.services.PohonService
 import org.delcom.services.ProfileService
 import org.koin.dsl.module
-
 
 val appModule = module {
     // Plant Repository
@@ -22,8 +24,16 @@ val appModule = module {
     single {
         ProfileService()
     }
-    // Tambahkan di dalam appModule
-    single<IPohonRepository> { PohonRepository() }
-    single { PohonService(get()) }
 
+    // Pohon Repository
+    single<IPohonRepository> {
+        PohonRepository()
+    }
+
+    // Pohon Service
+    single {
+        PohonService(get())
+    }
 }
+
+

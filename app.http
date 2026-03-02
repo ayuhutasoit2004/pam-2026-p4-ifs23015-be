@@ -1,5 +1,5 @@
 ## Global Variabel
-#@BaseUrl = https://pam-2026-p4-ifs18005-be.delcom.org:8080
+#@BaseUrl = https://pam-2026-p4-ifs23015-be.delcom.org:8080
 @BaseUrl = http://127.0.0.1:9000
 
 ## Profile
@@ -23,11 +23,6 @@ Content-Type: application/json
 # @name GetAllPlants
 GET {{BaseUrl}}/plants?search=
 Content-Type: application/json
-
-#> {%
-#    client.global.set("plantId", response.body.data.plants[0].id);
-#    console.log(client.global.get("plantId"))
-#%}
 
 ### Menambahkan data tumbuhan baru
 # @name PostPlants
@@ -126,4 +121,124 @@ Content-Type: image/png
 ### Menghapus data plant berdasarkan id-nya
 # @name DeletePlant
 DELETE {{BaseUrl}}/plants/{{plantId}}
+Content-Type: application/json
+
+
+## Pohon
+## ===========================================
+
+### Mengambil semua data pohon
+# @name GetAllPohon
+GET {{BaseUrl}}/pohon?search=
+Content-Type: application/json
+
+### Menambahkan data pohon baru
+# @name PostPohon
+POST {{BaseUrl}}/pohon
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Pohon Jati
+--WebAppBoundary
+Content-Disposition: form-data; name="jenis"
+
+Tropis
+--WebAppBoundary
+Content-Disposition: form-data; name="asalDaerah"
+
+Jawa, Indonesia
+--WebAppBoundary
+Content-Disposition: form-data; name="tinggiBatang"
+
+25.5
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Pohon jati adalah pohon penghasil kayu keras berkualitas tinggi yang banyak digunakan untuk furniture
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+> {%
+    client.global.set("pohonId", response.body.data.pohonId);
+    console.log(client.global.get("pohonId"))
+%}
+
+### Mengambil data pohon berdasarkan id-nya
+# @name GetPohonById
+GET {{BaseUrl}}/pohon/{{pohonId}}
+Content-Type: application/json
+
+### Melihat gambar pohon
+# @name GetPohonImageById
+GET {{BaseUrl}}/pohon/{{pohonId}}/image
+Content-Type: application/json
+
+### Mengubah hanya data pohon berdasarkan id-nya (tanpa ganti gambar)
+# @name PutPohonOnlyData
+PUT {{BaseUrl}}/pohon/{{pohonId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Pohon Jati Update
+--WebAppBoundary
+Content-Disposition: form-data; name="jenis"
+
+Tropis
+--WebAppBoundary
+Content-Disposition: form-data; name="asalDaerah"
+
+Jawa, Indonesia
+--WebAppBoundary
+Content-Disposition: form-data; name="tinggiBatang"
+
+30.0
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Pohon jati adalah pohon penghasil kayu keras berkualitas tinggi
+--WebAppBoundary--
+
+### Mengubah gambar dan data pohon berdasarkan id-nya
+# @name PutPohon
+PUT {{BaseUrl}}/pohon/{{pohonId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Pohon Jati
+--WebAppBoundary
+Content-Disposition: form-data; name="jenis"
+
+Tropis
+--WebAppBoundary
+Content-Disposition: form-data; name="asalDaerah"
+
+Jawa, Indonesia
+--WebAppBoundary
+Content-Disposition: form-data; name="tinggiBatang"
+
+25.5
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Pohon jati adalah pohon penghasil kayu keras berkualitas tinggi yang banyak digunakan untuk furniture
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+### Menghapus data pohon berdasarkan id-nya
+# @name DeletePohon
+DELETE {{BaseUrl}}/pohon/{{pohonId}}
 Content-Type: application/json

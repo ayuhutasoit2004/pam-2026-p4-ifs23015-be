@@ -3,6 +3,7 @@ package org.delcom.helpers
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
 import org.delcom.tables.PlantTable
+import org.delcom.tables.PohonTable
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -18,8 +19,12 @@ fun Application.configureDatabases() {
         user = dbUser,
         password = dbPassword
     )
+
     // ✅ INIT TABLE
     transaction {
-        SchemaUtils.createMissingTablesAndColumns(PlantTable)
+        SchemaUtils.createMissingTablesAndColumns(
+            PlantTable,
+            PohonTable
+        )
     }
 }

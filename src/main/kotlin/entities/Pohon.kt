@@ -1,20 +1,23 @@
-package org.delcom.dao
+package org.delcom.entities
 
-import org.delcom.tables.PohonTable
-import org.jetbrains.exposed.dao.Entity
-import org.jetbrains.exposed.dao.EntityClass
-import org.jetbrains.exposed.dao.id.EntityID
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import java.util.UUID
 
-class PohonDAO(id: EntityID<UUID>) : Entity<UUID>(id) {
-    companion object : EntityClass<UUID, PohonDAO>(PohonTable)
+@Serializable
+data class Pohon(
+    var id: String = UUID.randomUUID().toString(),
+    var nama: String,
+    var jenis: String,
+    var asalDaerah: String,
+    var tinggiBatang: Double,
+    var pathGambar: String,
+    var deskripsi: String,
 
-    var nama by PohonTable.nama
-    var jenis by PohonTable.jenis
-    var asalDaerah by PohonTable.asalDaerah
-    var tinggiBatang by PohonTable.tinggiBatang
-    var pathGambar by PohonTable.pathGambar
-    var deskripsi by PohonTable.deskripsi
-    var createdAt by PohonTable.createdAt
-    var updatedAt by PohonTable.updatedAt
-}
+    @Contextual
+    val createdAt: Instant = Clock.System.now(),
+    @Contextual
+    var updatedAt: Instant = Clock.System.now(),
+)
